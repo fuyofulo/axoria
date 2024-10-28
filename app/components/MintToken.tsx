@@ -25,16 +25,24 @@ const MintTokenComponent = () => {
         // Fetch and set mint address when component mounts
         const storedMintAddress = localStorage.getItem("mintAddress");
         if (storedMintAddress) {
-            setMintAddress(new PublicKey(storedMintAddress));
+            try {
+                setMintAddress(new PublicKey(storedMintAddress));
+                console.log("Mint address loaded:", storedMintAddress);
+            } catch (error) {
+                console.error("Error parsing mint address:", error);
+                setStatus("Invalid mint address in local storage.");
+            }
         }
     }, []);
 
     const mintTokens = async () => {
-        const storedMintAddress = localStorage.getItem("mintAddress");
+        if (!publicKey || isLoading) return;
 
-        if (!storedMintAddress || !publicKey || isLoading) return;
+        if (!mintAddress) {
+            setStatus("Create a token first.");
+            return;
+        }
 
-        const mintAddress = new PublicKey(storedMintAddress);
         setIsLoading(true);
         setStatus("");
 
@@ -42,7 +50,7 @@ const MintTokenComponent = () => {
             const mintInfo = await getMint(connection, mintAddress, undefined, TOKEN_2022_PROGRAM_ID);
 
             if (!mintInfo.mintAuthority?.equals(publicKey)) {
-                throw new Error("Wallet is not mint authority");
+                throw new Error("Wallet is not the mint authority.");
             }
 
             const associatedTokenAddress = getAssociatedTokenAddressSync(
@@ -56,7 +64,6 @@ const MintTokenComponent = () => {
             const transaction = new Transaction();
             const instructions: TransactionInstruction[] = [];
 
-            // Check if associated token account exists
             const account = await connection.getAccountInfo(associatedTokenAddress);
             if (!account) {
                 instructions.push(
@@ -84,20 +91,15 @@ const MintTokenComponent = () => {
 
             transaction.add(...instructions);
             const signature = await sendTransaction(transaction, connection);
-            console.log(`signature: ${signature}`)
-
+            console.log(`Transaction signature: ${signature}`);
             setStatus("Tokens minted successfully!");
         } catch (error) {
-            setStatus(`Error minting token`);
-            console.log(error);
+            console.error("Error during minting:", error);
+            setStatus("Error minting token. Check console for details.");
         } finally {
             setIsLoading(false);
         }
     };
-
-    if (!mintAddress) {
-        return <p>Loading mint address...</p>; // or a spinner
-    }
 
     return (
         <div className="flex flex-col items-center gap-4">
