@@ -11,18 +11,22 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 
-  const [solanaEndpoint, setSolanaEndpoint] = useState<string | undefined>(undefined);
+  const [endpoint, setEndpoint] = useState<string | null>(null);
 
   useEffect(() => {
-    // Ensure the environment variable is only read on the client
-    setSolanaEndpoint(process.env.NEXT_PUBLIC_SOLANA_ENDPOINT);
+    const envEndpoint = process.env.NEXT_PUBLIC_SOLANA_ENDPOINT;
+    if (envEndpoint) {
+      setEndpoint(envEndpoint);
+    } else {
+      console.warn("NEXT_PUBLIC_SOLANA_ENDPOINT is not defined");
+    }
   }, []);
 
-  if (!solanaEndpoint) {
-    return <p>Loading...</p>; // Or a spinner
+  if (!endpoint) {
+    return <p>Loading...</p>; // or any other fallback UI while endpoint is being loaded
   }
   return (
-    <ConnectionProvider endpoint={solanaEndpoint}>
+    <ConnectionProvider endpoint={endpoint ? endpoint : "No endpoint found"}>
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
           <main className="min-h-screen p-4">
