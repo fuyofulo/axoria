@@ -6,10 +6,23 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import Airdrop from "./components/Airdrop";
 import { TokenForm } from "./components/TokenForm";
 import MintTokenComponent from "./components/MintToken";
+import { useEffect, useState } from "react";
+
 
 export default function Home() {
+
+  const [solanaEndpoint, setSolanaEndpoint] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    // Ensure the environment variable is only read on the client
+    setSolanaEndpoint(process.env.NEXT_PUBLIC_SOLANA_ENDPOINT);
+  }, []);
+
+  if (!solanaEndpoint) {
+    return <p>Loading...</p>; // Or a spinner
+  }
   return (
-    <ConnectionProvider endpoint={process.env.NEXT_PUBLIC_SOLANA_ENDPOINT as string}>
+    <ConnectionProvider endpoint={solanaEndpoint}>
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
           <main className="min-h-screen p-4">
