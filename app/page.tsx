@@ -6,27 +6,23 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import Airdrop from "./components/Airdrop";
 import { TokenForm } from "./components/TokenForm";
 import MintTokenComponent from "./components/MintToken";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 
 export default function Home() {
 
   const [endpoint, setEndpoint] = useState<string | null>(null);
-
   useEffect(() => {
-    const envEndpoint = process.env.NEXT_PUBLIC_SOLANA_ENDPOINT;
-    if (envEndpoint) {
-      setEndpoint(envEndpoint);
-    } else {
-      console.warn("NEXT_PUBLIC_SOLANA_ENDPOINT is not defined");
-    }
+    // This will only run on the client side after the component mounts
+    setEndpoint("https://solana-devnet.g.alchemy.com/v2/PIc1wmnH_QhOEwH3vtddMUwcYluAEHMU");
   }, []);
 
   if (!endpoint) {
-    return <p>Loading...</p>; // or any other fallback UI while endpoint is being loaded
+    return <p>Loading...</p>;
   }
+
   return (
-    <ConnectionProvider endpoint={endpoint ? endpoint : "No endpoint found"}>
+    <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
           <main className="min-h-screen p-4">
