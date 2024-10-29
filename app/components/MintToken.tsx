@@ -21,25 +21,22 @@ const MintTokenComponent = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [mintAddress, setMintAddress] = useState<PublicKey | null>(null);
 
-    useEffect(() => {
-        // Fetch and set mint address when component mounts
-        const storedMintAddress = localStorage.getItem("mintAddress");
-        if (storedMintAddress) {
-            try {
-                setMintAddress(new PublicKey(storedMintAddress));
-                console.log("Mint address loaded:", storedMintAddress);
-            } catch (error) {
-                console.error("Error parsing mint address:", error);
-                setStatus("Invalid mint address in local storage.");
-            }
-        }
-    }, []);
 
     const mintTokens = async () => {
         if (!publicKey || isLoading) return;
 
-        if (!mintAddress) {
+        const storedMintAddress = localStorage.getItem("mintAddress");
+        if (!storedMintAddress) {
             setStatus("Create a token first.");
+            return;
+        }
+
+        let mintAddress;
+        try {
+            mintAddress = new PublicKey(storedMintAddress);
+        } catch (error) {
+            console.error("Error parsing mint address:", error);
+            setStatus("Invalid mint address in local storage.");
             return;
         }
 

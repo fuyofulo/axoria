@@ -6,6 +6,7 @@ import { TOKEN_2022_PROGRAM_ID, getMintLen, createInitializeMetadataPointerInstr
 import { createInitializeInstruction, pack } from '@solana/spl-token-metadata';
 import { SystemProgram, Transaction, Keypair } from '@solana/web3.js';
 
+
 export function TokenForm() {
     const wallet = useWallet();
     const { connection } = useConnection();
@@ -85,7 +86,12 @@ export function TokenForm() {
                 setStatus("Token created successfully!");
 
                 // Store the mint address in localStorage
-                localStorage.setItem('mintAddress', mintKeypair.publicKey.toBase58());
+
+                if(localStorage.setItem('mintAddress', mintKeypair.publicKey.toBase58())!) {
+                    console.log("mint address wasnt stored in the local storage")
+                } else {
+                    console.log(`mint address stored successfully: ${mintKeypair.publicKey.toBase58()}`)
+                }
 
                 setMintAddress(mintKeypair.publicKey.toBase58()); // Set the mint address for popup
                 setIsPopupOpen(true); // Open the success popup
