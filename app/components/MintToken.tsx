@@ -1,6 +1,6 @@
 "use client";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Input, Button } from 'pixel-retroui';
 import {
     TOKEN_2022_PROGRAM_ID,
@@ -19,8 +19,6 @@ const MintTokenComponent = () => {
     const [amount, setAmount] = useState("");
     const [status, setStatus] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [mintAddress, setMintAddress] = useState<PublicKey | null>(null);
-
 
     const mintTokens = async () => {
         if (!publicKey || isLoading) return;
