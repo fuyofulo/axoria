@@ -6,7 +6,7 @@ import { Button } from 'pixel-retroui';
 import { Input } from 'pixel-retroui';
 
 export function Airdrop() {
-    const { connection } = useConnection();
+    
     const { publicKey } = useWallet();
     const [amount, setAmount] = useState("");
     const [status, setStatus] = useState("");
