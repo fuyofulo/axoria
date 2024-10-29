@@ -1,12 +1,12 @@
 "use client";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useState } from "react";
 import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { Button } from 'pixel-retroui';
 import { Input } from 'pixel-retroui';
 
 export function Airdrop() {
-    
+
     const { publicKey } = useWallet();
     const [amount, setAmount] = useState("");
     const [status, setStatus] = useState("");
