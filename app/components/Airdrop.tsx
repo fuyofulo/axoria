@@ -1,7 +1,7 @@
 "use client";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useState } from "react";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { Button } from 'pixel-retroui';
 import { Input } from 'pixel-retroui';
 
@@ -24,6 +24,9 @@ export function Airdrop() {
             return;
         }
     
+        // Use custom RPC URL
+        const connection = new Connection("https://solana-devnet.g.alchemy.com/v2/PIc1wmnH_QhOEwH3vtddMUwcYluAEHMU", "confirmed");
+    
         setIsAirdropping(true);
         setStatus("Requesting airdrop...");
     
@@ -34,7 +37,7 @@ export function Airdrop() {
             );
             console.log("Airdrop signature:", signature);
     
-            // Check if the transaction is confirmed
+            // Confirm transaction with retries
             let isConfirmed = false;
             for (let retries = 0; retries < 5; retries++) {
                 const status = await connection.getSignatureStatus(signature, { searchTransactionHistory: true });

@@ -7,3 +7,10 @@
 body{
     background-color: #ddceb4;
 }
+
+
+
+.social-link {
+    color: blue;
+    text-decoration: underline;
+}
