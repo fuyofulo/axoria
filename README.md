@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Axoria - Web3 Solana Platform
+
+Live Demo: [axoria.vercel.app](https://axoria.vercel.app)
+
+Axoria is a modern Web3 platform built on the Solana blockchain, featuring a sleek user interface and essential blockchain functionalities. This project demonstrates the integration of Solana's blockchain capabilities with a modern web frontend.
+
+## Tech Stack
+
+### Frontend
+
+- **Next.js 14** - React framework for production-grade applications
+- **TypeScript** - For type-safe code and better developer experience
+- **Tailwind CSS** - For responsive and utility-first styling
+- **pixel-retroui** - Custom UI components with retro pixel art style
+
+### Blockchain
+
+- **Solana Web3.js** - Core Solana blockchain interactions
+- **@solana/wallet-adapter** - Wallet connection and management
+- **Solana Devnet** - For testing and development
+
+## Features
+
+### 🔌 Wallet Integration
+
+- Seamless connection with popular Solana wallets
+- Real-time wallet balance display
+- Secure transaction handling
+
+### 💧 SOL Airdrop Functionality
+
+- Request test SOL tokens on Solana devnet
+- Built-in rate limit handling
+- Real-time transaction status updates
+- Automatic fallback to alternative faucets
+
+### 🎨 Modern UI/UX
+
+- Responsive design for all devices
+- Pixel art inspired interface
+- Interactive feedback for all actions
+- Loading states and error handling
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   git clone <your-repo-url>
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Run the development server:
 
-## Learn More
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Connect your Solana wallet using the "Connect Wallet" button
+2. Ensure your wallet is set to Devnet for testing
+3. Use the airdrop feature to request test SOL
+4. Monitor transaction status and wallet balance updates
 
-## Deploy on Vercel
+## Development Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- The project uses Solana's devnet for testing
+- Airdrop limits are enforced by the Solana devnet (max 2 SOL per request)
+- Alternative faucet options are provided when rate limits are reached
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+The project is deployed on Vercel for optimal performance and reliability. Automatic deployments are triggered on main branch updates.
+
+## Contributing
+
+Feel free to contribute to this project by:
+
+1. Forking the repository
+2. Creating a feature branch
+3. Opening a pull request
+
+## License
+
+This project is open source and available under the MIT license.
+
+## Contact
+
+For any queries or suggestions, feel free to reach out or create an issue in the repository.
+
+---
+
+Built with ❤️ using Next.js and Solana
